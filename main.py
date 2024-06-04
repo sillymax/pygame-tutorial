@@ -188,6 +188,7 @@ def move_everything():
 
 # collision detection, including removal of enemies and detecting bullet hit
 def check_collisions():
+	# __BONUS__
     # global health, yellow_bullets, enemies_list, score
     global enemies_list
 
@@ -206,7 +207,7 @@ def check_collisions():
     # for bullet in yellow_bullets:
     #     for enemy in enemies_list:
     #         if bullet.colliderect(enemy):
-    #             #yellow_bullets.remove(bullet)
+    #             yellow_bullets.remove(bullet)
     #             enemies_list.remove(enemy)
     #             score += 1
     #             break
