@@ -77,7 +77,7 @@ def draw():
     # we use blit which stands for "block transfer", which is a
     # function that draws one surface onto another.
     # health_text = FONT.render("Health: " + str(health), 1, WHITE)
-    # WIN.blit(health_text, (10, 10))
+    # WIN.blit(health_text, (10, 40))
 
     # score is placed below health, with a gap of 10.
     # we do this by getting the health text's height and adding
@@ -87,7 +87,7 @@ def draw():
     # health text to the score text's height (from above)
     WIN.blit(score_text, (10, 10))
     # __BONUS__
-    # WIN.blit(score_text, (10, health_text.get_height() + 10))
+    # WIN.blit(score_text, (10, health_text.get_height() + 40))
 
     # updates the displaed screen
     pygame.display.update()
