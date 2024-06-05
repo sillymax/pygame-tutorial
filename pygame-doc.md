@@ -80,6 +80,18 @@ def draw():
 	WIN.blit(SPACE_IMAGE, (0, 0))
 ```
 
+---
+
+### Draw player
+- Create a rectangle for the player
+- Draw the player based on the rectangle (x, y)
+```py
+player = pygame.Rect(100, 300, SPACESHIP_WIDTH, SPACESHIP_HEIGHT)
+
+def draw():
+	WIN.blit(PLAYER_IMAGE, (player.x, player.y))
+```
+
 ## Spawn enemies
 - Randomly spawn enemies
 - Check if the number of enemies on the map is less than the maximum number of enemies allowed

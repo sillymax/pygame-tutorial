@@ -4,6 +4,9 @@ import random
 WIDTH, HEIGHT = 800, 700
 FPS = 30
 
+MAX_ENEMY_ON_MAP = 5
+SPACESHIP_WIDTH, SPACESHIP_HEIGHT = 75, 78
+
 pygame.init()
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Simple Game with Enemies!")
@@ -18,9 +21,10 @@ ENEMY_IMAGE = pygame.image.load('assets/enemy.png')
 SPACE_IMAGE = pygame.image.load('assets/background.png')
 SPACE_IMAGE = pygame.transform.scale(SPACE_IMAGE, (WIDTH, HEIGHT))
 
-MAX_ENEMY_ON_MAP = 5
-SPACESHIP_WIDTH, SPACESHIP_HEIGHT = 75, 78
+# Player's rectangle
+player = pygame.Rect(100, 300, SPACESHIP_WIDTH, SPACESHIP_HEIGHT)
 
+# Enemies list
 enemies_list = []
 
 
@@ -40,6 +44,7 @@ def main():
 
 def draw():
 	WIN.blit(SPACE_IMAGE, (0, 0))
+	WIN.blit(PLAYER_IMAGE, (player.x, player.y))
 	pygame.display.update()
 
 
