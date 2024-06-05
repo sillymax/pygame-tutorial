@@ -1,4 +1,5 @@
 # Mandatory
+[Click here for complete code](./mandatory.py)
 
 ### Table of content
 - [Initialization](#initialization)
