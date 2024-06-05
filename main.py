@@ -55,42 +55,42 @@ enemies_list = []
 
 # draw everything, including player, enemy, bullets, background
 def draw():
-    WIN.blit(SPACE_IMAGE, (0, 0))
+	WIN.blit(SPACE_IMAGE, (0, 0))
 
-    # put the yellow spaceship picture on the screen at
-    # the position (yellow.x, yellow.y) which is the top left corner of
-    # the yellow rectangle (spaceship)
-    WIN.blit(PLAYER_IMAGE, (player.x, player.y))
+	# put the yellow spaceship picture on the screen at
+	# the position (yellow.x, yellow.y) which is the top left corner of
+	# the yellow rectangle (spaceship)
+	WIN.blit(PLAYER_IMAGE, (player.x, player.y))
 
-    # __BONUS__
-    # draw every bullet in the yellow_bullets list using
-    # pygame.draw.rect to draw a rectangle
-    # for bullet in yellow_bullets:
-    #     pygame.draw.rect(WIN, YELLOW, bullet)
+	# __BONUS__
+	# draw every bullet in the yellow_bullets list using
+	# pygame.draw.rect to draw a rectangle
+	# for bullet in yellow_bullets:
+	#     pygame.draw.rect(WIN, YELLOW, bullet)
 
-    # draw every enemy in the enemies list
-    for enemy in enemies_list:
-        WIN.blit(ENEMY_IMAGE, (enemy.x, enemy.y))
+	# draw every enemy in the enemies list
+	for enemy in enemies_list:
+		WIN.blit(ENEMY_IMAGE, (enemy.x, enemy.y))
 
-    # __BONUS__
-    # show the health and score on the screen.
-    # we use blit which stands for "block transfer", which is a
-    # function that draws one surface onto another.
-    # health_text = FONT.render("Health: " + str(health), 1, WHITE)
-    # WIN.blit(health_text, (10, 10))
+	# __BONUS__
+	# show the health and score on the screen.
+	# we use blit which stands for "block transfer", which is a
+	# function that draws one surface onto another.
+	# health_text = FONT.render("Health: " + str(health), 1, WHITE)
+	# WIN.blit(health_text, (10, 10))
 
-    # score is placed below health, with a gap of 10.
-    # we do this by getting the health text's height and adding
-    # it to the score text's height (from above)
-    score_text = FONT.render("Score: " + str(score), 1, WHITE)
-    # put score below health, do this by adding the height of the
-    # health text to the score text's height (from above)
-    WIN.blit(score_text, (10, 10))
-    # __BONUS__
-    # WIN.blit(score_text, (10, health_text.get_height() + 10))
+	# score is placed below health, with a gap of 10.
+	# we do this by getting the health text's height and adding
+	# it to the score text's height (from above)
+	score_text = FONT.render("Score: " + str(score), 1, WHITE)
+	# put score below health, do this by adding the height of the
+	# health text to the score text's height (from above)
+	WIN.blit(score_text, (10, 10))
+	# __BONUS__
+	# WIN.blit(score_text, (10, health_text.get_height() + 10))
 
-    # updates the displaed screen
-    pygame.display.update()
+	# updates the displaed screen
+	pygame.display.update()
 
 # __BONUS__
 # shoot bullets by adding bullets to yellow_bullets list
@@ -120,97 +120,97 @@ def draw():
 # randomly spawn red enemies (can change to another player)
 # at the right of the screen
 def spawn_enemies():
-    # use random.randint to get a random number between 0 and 100
-    # then, check if the number is less than 2, which has a
-    # proability of 2%
-    # we also want to check if the number of enemies is less than the max
-    # number of enemies on the map to pervent too many enemies from spawning
-    if random.randint(0, 100) < 2 and len(enemies_list) < MAX_ENEMY_ON_MAP:
-        # spawn the enemy at the right of the screen
-        # which is at y-coordinate equal to the width of the screen minus 100
-        x_location = WIDTH - 100
-        y_location = random.randint(0, HEIGHT - SPACESHIP_HEIGHT)
-        enemy = pygame.Rect(x_location, y_location, SPACESHIP_WIDTH, SPACESHIP_HEIGHT)
-        # add enemy to the list of enemies to be drawn
-        enemies_list.append(enemy)
+	# use random.randint to get a random number between 0 and 100
+	# then, check if the number is less than 2, which has a
+	# proability of 2%
+	# we also want to check if the number of enemies is less than the max
+	# number of enemies on the map to pervent too many enemies from spawning
+	if random.randint(0, 100) < 2 and len(enemies_list) < MAX_ENEMY_ON_MAP:
+		# spawn the enemy at the right of the screen
+		# which is at y-coordinate equal to the width of the screen minus 100
+		x_location = WIDTH - 100
+		y_location = random.randint(0, HEIGHT - SPACESHIP_HEIGHT)
+		enemy = pygame.Rect(x_location, y_location, SPACESHIP_WIDTH, SPACESHIP_HEIGHT)
+		# add enemy to the list of enemies to be drawn
+		enemies_list.append(enemy)
 
 
 # move player accordint to input
 def move_player():
-    global player
-    keys_pressed = pygame.key.get_pressed()
+	global player
+	keys_pressed = pygame.key.get_pressed()
 
-    # since left is 0, right is WIDTH
-    # minus VEL to go left and add VEL to go right
-    # make sure player is not going out of bounds
+	# since left is 0, right is WIDTH
+	# minus VEL to go left and add VEL to go right
+	# make sure player is not going out of bounds
 
-    # if A is pressed and player is not touching left wall
-    # ensure by checking if yellow rectangle top left corner
-    # is not touching left wall (0)
-    if keys_pressed[pygame.K_a] and player.x > 0:  # LEFT
-        player.x -= PLAYER_VEL
-    # if D is pressed and player is not touching right wall
-    # ensure by checking if yellow rectangle top right corner (yellow.x + yellow.width)
-    # is not touching right wall (WIDTH)
-    if keys_pressed[pygame.K_d] and player.x + player.width < WIDTH:  # RIGHT
-        player.x += PLAYER_VEL
-    # since top is 0, bottom is HEIGHT
-    # minus VEL to move up and add VEL to move down
+	# if A is pressed and player is not touching left wall
+	# ensure by checking if yellow rectangle top left corner
+	# is not touching left wall (0)
+	if keys_pressed[pygame.K_a] and player.x > 0:  # LEFT
+		player.x -= PLAYER_VEL
+	# if D is pressed and player is not touching right wall
+	# ensure by checking if yellow rectangle top right corner (yellow.x + yellow.width)
+	# is not touching right wall (WIDTH)
+	if keys_pressed[pygame.K_d] and player.x + player.width < WIDTH:  # RIGHT
+		player.x += PLAYER_VEL
+	# since top is 0, bottom is HEIGHT
+	# minus VEL to move up and add VEL to move down
 
-    # if W is pressed and player is not touching top wall
-    if keys_pressed[pygame.K_w] and player.y - PLAYER_VEL > 0:  # UP
-        player.y -= PLAYER_VEL
-    # if S is pressed and player is not touching bottom wall
-    if keys_pressed[pygame.K_s] and player.y + PLAYER_VEL + player.height < HEIGHT:  # DOWN
-        player.y += PLAYER_VEL
+	# if W is pressed and player is not touching top wall
+	if keys_pressed[pygame.K_w] and player.y - PLAYER_VEL > 0:  # UP
+		player.y -= PLAYER_VEL
+	# if S is pressed and player is not touching bottom wall
+	if keys_pressed[pygame.K_s] and player.y + PLAYER_VEL + player.height < HEIGHT:  # DOWN
+		player.y += PLAYER_VEL
 
 
 # move everything, not including player
 def move_everything():
-    global yellow_bullets, enemies_list
+	global yellow_bullets, enemies_list
 
-    # __BONUS__
-    # for bullet in yellow_bullets:  # go through all bullets
-    #     bullet.x += BULLET_VEL  # move them to the right
-    #
-    #     # remove the bullet if it goes out of bounds
-    #     # we do this by comparing the bullet's x position to the right wall (WIDTH)
-    #     if bullet.x > WIDTH:
-    #         yellow_bullets.remove(bullet)
+	# __BONUS__
+	# for bullet in yellow_bullets:  # go through all bullets
+	#     bullet.x += BULLET_VEL  # move them to the right
+	#
+	#     # remove the bullet if it goes out of bounds
+	#     # we do this by comparing the bullet's x position to the right wall (WIDTH)
+	#     if bullet.x > WIDTH:
+	#         yellow_bullets.remove(bullet)
 
-    for enemy in enemies_list:  # go through all enemies
-        enemy.x -= ENEMY_VEL  # move them to the left
-        # want to remove the enemy if it goes out of bounds
-        # we do this by comparing the enemy's x position to the left wall (0)
-        if enemy.x + enemy.width < 0:
-            enemies_list.remove(enemy)
+	for enemy in enemies_list:  # go through all enemies
+		enemy.x -= ENEMY_VEL  # move them to the left
+		# want to remove the enemy if it goes out of bounds
+		# we do this by comparing the enemy's x position to the left wall (0)
+		if enemy.x + enemy.width < 0:
+			enemies_list.remove(enemy)
 
 
 # collision detection, including removal of enemies and detecting bullet hit
 def check_collisions():
 	# __BONUS__
-    # global health, yellow_bullets, enemies_list, score
-    global enemies_list
+	# global health, yellow_bullets, enemies_list, score
+	global enemies_list
 
-    # go through all enemies and bullets
-    # if enemy hits the player, remove the enemy and subtract 1 from health
-    # for each enemy in the enemy list
-    for enemy in enemies_list:
-        if player.colliderect(enemy): # if player collides with the enemy
-            # __BONUS__
-            # health -= 1
-            # enemies_list.remove(enemy)
-            exit()
+	# go through all enemies and bullets
+	# if enemy hits the player, remove the enemy and subtract 1 from health
+	# for each enemy in the enemy list
+	for enemy in enemies_list:
+		if player.colliderect(enemy):  # if player collides with the enemy
+			# __BONUS__
+			# health -= 1
+			# enemies_list.remove(enemy)
+			exit()
 
-    # __BONUS__
-    # if bullet hits the enemy, remove the enemy and bullet, and increase score
-    # for bullet in yellow_bullets:
-    #     for enemy in enemies_list:
-    #         if bullet.colliderect(enemy):
-    #             yellow_bullets.remove(bullet)
-    #             enemies_list.remove(enemy)
-    #             score += 1
-    #             break
+	# __BONUS__
+	# if bullet hits the enemy, remove the enemy and bullet, and increase score
+	# for bullet in yellow_bullets:
+	#     for enemy in enemies_list:
+	#         if bullet.colliderect(enemy):
+	#             yellow_bullets.remove(bullet)
+	#             enemies_list.remove(enemy)
+	#             score += 1
+	#             break
 
 # __BONUS__
 # ending screen that shows up after the game ends
@@ -242,39 +242,39 @@ def check_collisions():
 
 
 def main():
-    global player, yellow_bullets, enemies_list, health, running
+	global player, yellow_bullets, enemies_list, health, running
 
-    # pygame clock that helps to control the frame rate
-    clock = pygame.time.Clock()
+	# pygame clock that helps to control the frame rate
+	clock = pygame.time.Clock()
 
-    running = True
-    while running:
-        clock.tick(FPS) # limits frames per second
+	running = True
+	while running:
+		clock.tick(FPS)  # limits frames per second
 
-        # if cross is detected, we end the game by setting running as False
-        # this way, we know that the game is quitted manually
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
-                break
-        # __BONUS__
-        # player_shoot()  # BONUS
-        spawn_enemies()  # 3rd
-        check_collisions()  # 5th
-        move_everything()  # 4th
-        move_player()  # 2nd
-        draw()  # first thing to add
+		# if cross is detected, we end the game by setting running as False
+		# this way, we know that the game is quitted manually
+		for event in pygame.event.get():
+			if event.type == pygame.QUIT:
+				running = False
+				break
+		# __BONUS__
+		# player_shoot()  # BONUS
+		spawn_enemies()  # 3rd
+		check_collisions()  # 5th
+		move_everything()  # 4th
+		move_player()  # 2nd
+		draw()  # first thing to add
 
-        # __BONUS__
-        # if health is 0, we end the game
-        # if health <= 0:
-        #     break
+		# __BONUS__
+		# if health is 0, we end the game
+		# if health <= 0:
+		#     break
 
-    # __BONUS__
-    # ending_screen()  # last thing to add
-    pygame.quit()
+	# __BONUS__
+	# ending_screen()  # last thing to add
+	pygame.quit()
 
 
 if __name__ == "__main__":
-    print(PLAYER_IMAGE.get_rect().width, PLAYER_IMAGE.get_rect().height)
-    main()
+	print(PLAYER_IMAGE.get_rect().width, PLAYER_IMAGE.get_rect().height)
+	main()
