@@ -45,6 +45,7 @@ def main():
 		spawn_enemies()
 		move_everything()
 		move_player()
+		check_collision()
 		draw()
 
 
@@ -89,6 +90,12 @@ def move_player():
 
 	if keys_pressed[pygame.K_s] and player.y + PLAYER_VEL + player.height < HEIGHT:
 		player.y += PLAYER_VEL
+
+
+def check_collision():
+	for enemy in enemies_list:
+		if player.colliderect(enemy):
+			exit()
 
 
 if __name__ == "__main__":

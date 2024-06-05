@@ -10,6 +10,7 @@
 - [Movement](#movement)
 	- [Move enemies](#move-enemies)
 	- [Move player](#move-player)
+- [Collision](#collision)
 
 ## Initialization
 - Import the pygame module
@@ -51,6 +52,7 @@ def main():
 
 ### Event loop
 - Check for events
+- Remember to add functions to game loop
 ```py
 for event in pygame.event.get():
 	if event.type == pygame.QUIT:
@@ -158,4 +160,15 @@ def move_player():
 
 	if keys_pressed[pygame.K_s] and player.y + PLAYER_VEL + player.height < HEIGHT:
 		player.y += PLAYER_VEL
+```
+
+## Collision
+- Check if the player collides with an enemy
+- Using `colliderect`
+- If the player collides with an enemy, exit the game
+```py
+def check_collision():
+	for enemy in enemies_list:
+		if player.colliderect(enemy):
+			exit()
 ```
