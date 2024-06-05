@@ -8,6 +8,7 @@ MAX_ENEMY_ON_MAP = 5
 SPACESHIP_WIDTH, SPACESHIP_HEIGHT = 75, 78
 
 ENEMY_VEL = 20
+PLAYER_VEL = 5
 
 pygame.init()
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -43,6 +44,7 @@ def main():
 
 		spawn_enemies()
 		move_everything()
+		move_player()
 		draw()
 
 
@@ -70,6 +72,23 @@ def move_everything():
 		enemy.x -= ENEMY_VEL
 		if enemy.x + enemy.width < 0:
 			enemies_list.remove(enemy)
+
+
+def move_player():
+	global player
+	keys_pressed = pygame.key.get_pressed()
+
+	if keys_pressed[pygame.K_a] and player.x > 0:
+		player.x -= PLAYER_VEL
+
+	if keys_pressed[pygame.K_d] and player.x + player.width < WIDTH:
+		player.x += PLAYER_VEL
+
+	if keys_pressed[pygame.K_w] and player.y - PLAYER_VEL > 0:
+		player.y -= PLAYER_VEL
+
+	if keys_pressed[pygame.K_s] and player.y + PLAYER_VEL + player.height < HEIGHT:
+		player.y += PLAYER_VEL
 
 
 if __name__ == "__main__":

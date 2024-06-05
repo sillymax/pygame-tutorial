@@ -9,6 +9,7 @@
 	- [Draw enemies](#draw-enemies)
 - [Movement](#movement)
 	- [Move enemies](#move-enemies)
+	- [Move player](#move-player)
 
 ## Initialization
 - Import the pygame module
@@ -133,4 +134,28 @@ def move_everything():
 		enemy.x -= ENEMY_VEL
 		if enemy.x + enemy.width < 0:
 			enemies_list.remove(enemy)
+```
+
+---
+
+### Move player
+- Move the player based on the key pressed
+- Check if the player is within the screen boundaries
+- Update the player's position
+```py
+def move_player():
+	global player
+	keys_pressed = pygame.key.get_pressed()
+
+	if keys_pressed[pygame.K_a] and player.x > 0:
+		player.x -= PLAYER_VEL
+
+	if keys_pressed[pygame.K_d] and player.x + player.width < WIDTH:
+		player.x += PLAYER_VEL
+
+	if keys_pressed[pygame.K_w] and player.y - PLAYER_VEL > 0:
+		player.y -= PLAYER_VEL
+
+	if keys_pressed[pygame.K_s] and player.y + PLAYER_VEL + player.height < HEIGHT:
+		player.y += PLAYER_VEL
 ```
