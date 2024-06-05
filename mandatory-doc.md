@@ -1,3 +1,5 @@
+# Mandatory
+
 ### Table of content
 - [Initialization](#initialization)
 	- [Initialize window, etc.](#initialize-the-game)
