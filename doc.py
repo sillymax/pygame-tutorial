@@ -76,7 +76,6 @@ def move_everything():
 
 
 def move_player():
-	global player
 	keys_pressed = pygame.key.get_pressed()
 
 	if keys_pressed[pygame.K_a] and player.x > 0:
