@@ -6,7 +6,7 @@ pygame.init()
 
 # Player's health, score
 # __BONUS__
-health = 3
+# health = 3
 score = 0
 
 # Screen dimensions
@@ -17,7 +17,9 @@ running = True
 
 # Colors
 WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
 YELLOW = (255, 255, 0)
+RED = (255, 0, 0)
 
 # Game constants
 FPS = 30  # frame rate
@@ -46,8 +48,8 @@ player = pygame.Rect(100, 300, SPACESHIP_WIDTH, SPACESHIP_HEIGHT)
 
 # Bullets and enemies
 # __BONUS__
-last_bullet_time = 0
-yellow_bullets = []
+# last_bullet_time = 0
+# yellow_bullets = []
 enemies_list = []
 
 
@@ -63,8 +65,8 @@ def draw():
 	# __BONUS__
 	# draw every bullet in the yellow_bullets list using
 	# pygame.draw.rect to draw a rectangle
-	for bullet in yellow_bullets:
-		pygame.draw.rect(WIN, YELLOW, bullet)
+	# for bullet in yellow_bullets:
+	# 	pygame.draw.rect(WIN, YELLOW, bullet)
 
 	# draw every enemy in the enemies list
 	for enemy in enemies_list:
@@ -74,8 +76,8 @@ def draw():
 	# show the health and score on the screen.
 	# we use blit which stands for "block transfer", which is a
 	# function that draws one surface onto another.
-	health_text = FONT.render("Health: " + str(health), 1, WHITE)
-	WIN.blit(health_text, (10, 10))
+	# health_text = FONT.render("Health: " + str(health), 1, WHITE)
+	# WIN.blit(health_text, (10, 10))
 
 	# score is placed below health, with a gap of 10.
 	# we do this by getting the health text's height and adding
@@ -83,37 +85,36 @@ def draw():
 	score_text = FONT.render("Score: " + str(score), 1, WHITE)
 	# put score below health, do this by adding the height of the
 	# health text to the score text's height (from above)
-	# WIN.blit(score_text, (10, 10))
+	WIN.blit(score_text, (10, 10))
 	# __BONUS__
-	WIN.blit(score_text, (10, health_text.get_height() + 10))
+	# WIN.blit(score_text, (10, health_text.get_height() + 10))
 
 	# updates the displaed screen
 	pygame.display.update()
 
-
 # __BONUS__
 # shoot bullets by adding bullets to yellow_bullets list
 # red shoot can be defined the same way but with diff buttons
-def player_shoot():
-	global last_bullet_time
+# def player_shoot():
+# 	global last_bullet_time
 
-	# get pressed keys
-	keys_pressed = pygame.key.get_pressed()
-	if keys_pressed[pygame.K_SPACE]:  # shoot if space is pressed
-		current_time = pygame.time.get_ticks()
-		# get_ticks returns the number of milliseconds since pygame.init()
-		# check if the bullet cooldown is passed
-		# current_time - last_bullet_time = "time passed since last shot"
-		# check if the time passed is greater than the bullet cooldown (in milliseconds)
-		if current_time - last_bullet_time > BULLET_COOLDOWN:
-			# spawn the bullet at the right of the yellow spaceship
-			# and update the last_bullet_time to the current time
-			# we get the corrdinate by:
-			#     right of yellow spaceship = yellow.x + yellow.width
-			#     middle height of yellow spaceship = yellow.y + yellow.height // 2
-			bullet = pygame.Rect(player.x + player.width, player.y + player.height // 2 - 2, 10, 5)
-			yellow_bullets.append(bullet)
-			last_bullet_time = current_time
+# 	# get pressed keys
+# 	keys_pressed = pygame.key.get_pressed()
+# 	if keys_pressed[pygame.K_SPACE]:  # shoot if space is pressed
+# 		current_time = pygame.time.get_ticks()
+# 		# get_ticks returns the number of milliseconds since pygame.init()
+# 		# check if the bullet cooldown is passed
+# 		# current_time - last_bullet_time = "time passed since last shot"
+# 		# check if the time passed is greater than the bullet cooldown (in milliseconds)
+# 		if current_time - last_bullet_time > BULLET_COOLDOWN:
+# 			# spawn the bullet at the right of the yellow spaceship
+# 			# and update the last_bullet_time to the current time
+# 			# we get the corrdinate by:
+# 			#     right of yellow spaceship = yellow.x + yellow.width
+# 			#     middle height of yellow spaceship = yellow.y + yellow.height // 2
+# 			bullet = pygame.Rect(player.x + player.width, player.y + player.height // 2 - 2, 10, 5)
+# 			yellow_bullets.append(bullet)
+# 			last_bullet_time = current_time
 
 
 # randomly spawn red enemies (can change to another player)
@@ -169,13 +170,13 @@ def move_everything():
 	global yellow_bullets, enemies_list
 
 	# __BONUS__
-	for bullet in yellow_bullets:  # go through all bullets
-		bullet.x += BULLET_VEL  # move them to the right
+	# for bullet in yellow_bullets:  # go through all bullets
+	# 	bullet.x += BULLET_VEL  # move them to the right
 
-		# remove the bullet if it goes out of bounds
-		# we do this by comparing the bullet's x position to the right wall (WIDTH)
-		if bullet.x > WIDTH:
-			yellow_bullets.remove(bullet)
+	# 	# remove the bullet if it goes out of bounds
+	# 	# we do this by comparing the bullet's x position to the right wall (WIDTH)
+	# 	if bullet.x > WIDTH:
+	# 		yellow_bullets.remove(bullet)
 
 	for enemy in enemies_list:  # go through all enemies
 		enemy.x -= ENEMY_VEL  # move them to the left
@@ -187,8 +188,6 @@ def move_everything():
 
 # collision detection, including removal of enemies and detecting bullet hit
 def check_collisions():
-	# __BONUS__
-	global health, yellow_bullets, enemies_list, score
 	global enemies_list
 
 	# go through all enemies and bullets
@@ -197,48 +196,48 @@ def check_collisions():
 	for enemy in enemies_list:
 		if player.colliderect(enemy):  # if player collides with the enemy
 			# __BONUS__
-			health -= 1
-			enemies_list.remove(enemy)
+			# health -= 1
+			# enemies_list.remove(enemy)
 			exit()
 
 	# __BONUS__
+	# global health, yellow_bullets, enemies_list, score
 	# if bullet hits the enemy, remove the enemy and bullet, and increase score
-	for bullet in yellow_bullets:
-		for enemy in enemies_list:
-			if bullet.colliderect(enemy):
-				yellow_bullets.remove(bullet)
-				enemies_list.remove(enemy)
-				score += 1
-				break
-
+	# for bullet in yellow_bullets:
+	# 	for enemy in enemies_list:
+	# 		if bullet.colliderect(enemy):
+	# 			yellow_bullets.remove(bullet)
+	# 			enemies_list.remove(enemy)
+	# 			score += 1
+	# 			break
 
 # __BONUS__
 # ending screen that shows up after the game ends
-def ending_screen():
-	global running
+# def ending_screen():
+# 	global running
 
-	# display ending message
-	ending_text = FONT.render("YOU DIED!", 1, WHITE)
-	WIN.blit(ending_text, (WIDTH // 2 - ending_text.get_width() // 2, HEIGHT // 2 - ending_text.get_height() // 2))
-	# score is displayed below the ending message
-	score_text = FONT.render("Score: " + str(score), 1, WHITE)
-	WIN.blit(score_text, (
-		WIDTH // 2 - score_text.get_width() // 2, HEIGHT // 2 - score_text.get_height() // 2 + ending_text.get_height()))
+# 	# display ending message
+# 	ending_text = FONT.render("YOU DIED!", 1, WHITE)
+# 	WIN.blit(ending_text, (WIDTH // 2 - ending_text.get_width() // 2, HEIGHT // 2 - ending_text.get_height() // 2))
+# 	# score is displayed below the ending message
+# 	score_text = FONT.render("Score: " + str(score), 1, WHITE)
+# 	WIN.blit(score_text, (
+# 	WIDTH // 2 - score_text.get_width() // 2, HEIGHT // 2 - score_text.get_height() // 2 + ending_text.get_height()))
 
-	# here, display is updated to show the ending text
-	# after that we no longer need to update so its outside of the main loop
-	pygame.display.update()
+# 	# here, display is updated to show the ending text
+# 	# after that we no longer need to update so its outside of the main loop
+# 	pygame.display.update()
 
-	# main loop for ending screen
-	while running:
-		for event in pygame.event.get():
-			if event.type == pygame.QUIT:
-				running = False
-				pygame.quit()
+# 	# main loop for ending screen
+# 	while running:
+# 		for event in pygame.event.get():
+# 			if event.type == pygame.QUIT:
+# 				running = False
+# 				pygame.quit()
 
-		pygame.time.delay(100)
+# 		pygame.time.delay(100)
 
-	pygame.quit()
+# 	pygame.quit()
 
 
 def main():
@@ -258,7 +257,7 @@ def main():
 				running = False
 				break
 		# __BONUS__
-		player_shoot()  # BONUS
+		# player_shoot()  # BONUS
 		spawn_enemies()  # 3rd
 		check_collisions()  # 5th
 		move_everything()  # 4th
@@ -267,14 +266,13 @@ def main():
 
 		# __BONUS__
 		# if health is 0, we end the game
-		if health <= 0:
-			break
+		# if health <= 0:
+		#     break
 
 	# __BONUS__
-	ending_screen()  # last thing to add
+	# ending_screen()  # last thing to add
 	pygame.quit()
 
 
 if __name__ == "__main__":
-	print(PLAYER_IMAGE.get_rect().width, PLAYER_IMAGE.get_rect().height)
 	main()
