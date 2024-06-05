@@ -4,7 +4,11 @@
 	- [Event loop](#event-loop)
 - [Drawing](#drawing)
 	- [Draw background](#draw-background)
+	- [Draw player](#draw-player)
 - [Spawn enemies](#spawn-enemies)
+	- [Draw enemies](#draw-enemies)
+- [Movement](#movement)
+	- [Move enemies](#move-enemies)
 
 ## Initialization
 - Import the pygame module
@@ -104,4 +108,29 @@ def spawn_enemies():
 		y_location = random.randint(0, HEIGHT - SPACESHIP_HEIGHT)
 		enemy = pygame.Rect(x_location, y_location, SPACESHIP_WIDTH, SPACESHIP_HEIGHT)
 		enemies_list.append(enemy)
+```
+
+---
+
+### Draw enemies
+- Up until now, the enemies will not "move" because we are not updating their position
+```py
+def draw():
+	for enemy in enemies_list:
+		WIN.blit(ENEMY_IMAGE, (enemy.x, enemy.y))
+```
+
+## Movement
+- Now we handle all the movement of the player and the enemies
+
+### Move enemies
+- Move the enemies to the left on a constant velocity
+- If the enemy is off the screen, remove it from the list
+
+```py
+def move_everything():
+	for enemy in enemies_list:
+		enemy.x -= ENEMY_VEL
+		if enemy.x + enemy.width < 0:
+			enemies_list.remove(enemy)
 ```
