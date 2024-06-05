@@ -13,7 +13,10 @@ def main():
 	running = True
 	while running:
 		clock.tick(FPS)
-		# event loop
+
+		for event in pygame.event.get():
+			if event.type == pygame.QUIT:
+				running = False
 
 if __name__ == "__main__":
 	main()

@@ -1,6 +1,7 @@
 ### Table of content
 - [Initialization](#initialization)
 	- [Initialize window, etc.](#initialize-the-game)
+	- [Event loop](#event-loop)
 
 ## Initialization
 - Import the pygame module
@@ -32,5 +33,13 @@ def main():
 	running = True
 	while running:
 		clock.tick(FPS)
-		# event loop
+		# Event loop
+```
+
+### Event loop
+- Check for events
+```py
+for event in pygame.event.get():
+	if event.type == pygame.QUIT:
+		running = False
 ```
