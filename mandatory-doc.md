@@ -99,6 +99,7 @@ def draw():
 player = pygame.Rect(100, 300, SPACESHIP_WIDTH, SPACESHIP_HEIGHT)
 
 def draw():
+	# Components drawn before
 	WIN.blit(PLAYER_IMAGE, (player.x, player.y))
 ```
 
@@ -122,6 +123,7 @@ def spawn_enemies():
 - Up until now, the enemies will not "move" because we are not updating their position
 ```py
 def draw():
+	# Components drawn before
 	for enemy in enemies_list:
 		WIN.blit(ENEMY_IMAGE, (enemy.x, enemy.y))
 ```
