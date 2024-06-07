@@ -2,9 +2,11 @@
 [Click here for complete code](./mandatory.py)
 
 ### Table of content
-- [Initialization](#initialization)
-	- [Initialize window, etc.](#initialize-the-game)
-	- [Event loop](#event-loop)
+- [Setup](#setup)
+	- [Initialize Pygame](#initialize-pygame)
+	- [Create Window](#create-window)
+	- [Event Handling](#event-handling)
+   		- [Close Button Event](#close-button-event)
 - [Drawing](#drawing)
 	- [Draw background](#draw-background)
 	- [Draw player](#draw-player)
@@ -15,60 +17,77 @@
 	- [Move player](#move-player)
 - [Collision](#collision)
 
-## Initialization
-- Import the pygame module
-- Structure the main function
-
+## Setup
+### Initialize Pygame
 ```py
 import pygame
 
-
-def main():
-	pass
-	# Initialize window, etc.
-
-
-if __name__ == "__main__":
-	main()
-```
-
----
-
-### Initialize window, etc.
-- Set the game loop
-- Set the tick rate
-```py
 pygame.init()
-WIN = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Simple Game with Enemies!")
-
-def main():
-	clock = pygame.time.Clock()
-
-	running = True
-	while running:
-		clock.tick(FPS)
-		# Event loop
+# You must call init() at the start of every project,
+# to activate pygame library.
 ```
 
 ---
 
-### Event loop
-- Check for events
-- Remember to add functions to game loop
+### Create Window
 ```py
-for event in pygame.event.get():
-	if event.type == pygame.QUIT:
-		running = False
-```
+WIDTH = 500
+HEIGHT = 700
+window = pygame.display.set_mode((WIDTH, HEIGHT))
+# pygame.display.set_mode() is used to create a window of WIDTH wide and HEIGHT tail.
+# We store it in 'window', so that we can refer to it later in our code.
 
-## Drawing
-- Drawing the window, spaceship, enemies, etc.
-```py
-def draw():
-	# Draw components
-	pygame.display.update()
+pygame.display.set_caption("Simple Game with Enemies")
+# Set the window title on the top-left
 ```
+Try running the game now. You might notice that the window only appears for a second.
+This is because we need to create a "game loop" to keep the window open.
+
+---
+
+### Create Game Loop
+```py
+running = True
+# 'running' is like a switch that keeps the game running.
+# We start with the switch set to 'on' (True), so the game starts.
+while running:
+# This loop keeps the game running
+	pass
+	# We'll add more code here later to make the game do things!
+```
+Now, try running the game again. It's running, but when you try to close it by clicking the close button on the window, nothing happens.
+We'll fix this by adding something special called "event handling" to make the game respond when you want to close it.
+
+---
+
+### Event Handling
+```py
+running = True
+while running:
+	for event in pygame.event.get():
+	# Event handling allows our game to respond to things that happen, like clicking the close button.
+		print(event)
+		# Print the event and see what's happening. We'll remove this later!
+```
+Try running the game and see what events are printed!
+
+---
+
+### Close Button Event
+```py
+running = True
+while running:
+	for event in pygame.event.get():
+		if event.type == pygame.QUIT:
+		# This part checks if we clicked the close button on the window.
+			running = False
+			# If we did click the close button, we turn the switch 'off' (set running to False).
+```
+Try running the game again. This time, when you click the close button, the game should close!
+
+---
+
+## Drawing On The Window
 - Loading images
 ```py
 # Spaceship image
