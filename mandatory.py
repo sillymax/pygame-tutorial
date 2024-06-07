@@ -1,101 +1,75 @@
 import pygame
 import random
 
-WIDTH, HEIGHT = 800, 700
-FPS = 30
-
-MAX_ENEMY_ON_MAP = 5
-SPACESHIP_WIDTH, SPACESHIP_HEIGHT = 75, 78
-
-ENEMY_VEL = 20
-PLAYER_VEL = 5
-
+#Initialize pygame
 pygame.init()
-WIN = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Simple Game with Enemies!")
 
-# Spaceship image
-PLAYER_IMAGE = pygame.image.load("assets/spaceship_horizontal.png")
+#Set FPS and Clock
+FPS = 60
+clock = pygame.time.Clock()
 
-# Enemy image
-ENEMY_IMAGE = pygame.image.load('assets/enemy.png')
+#Create window
+window_width = 800
+window_height = 700
+window = pygame.display.set_mode((window_width, window_height))
 
-# Background image
-SPACE_IMAGE = pygame.image.load('assets/background.png')
-SPACE_IMAGE = pygame.transform.scale(SPACE_IMAGE, (WIDTH, HEIGHT))
+#Set game values
+enemy_velocity = 10
+player_velocity = 5
 
-# Player's rectangle
-player = pygame.Rect(100, 300, SPACESHIP_WIDTH, SPACESHIP_HEIGHT)
+#Set images
+background_image = pygame.image.load("assets/background.png")
+background_rect = background_image.get_rect()
 
-# Enemies list
-enemies_list = []
+player_image = pygame.image.load("assets/spaceship_horizontal.png")
+player_rect = player_image.get_rect()
+player_rect.left = 100
+player_rect.centery = window_height//2
 
+enemy_image = pygame.image.load("assets/enemy.png")
 
-def main():
-	clock = pygame.time.Clock()
+#Set enemies intial positions
+num_enemies = 5
+buffer_distance = 500
+enemies = []
+for _ in range(num_enemies):
+    enemy_rect = enemy_image.get_rect()
+    enemy_rect.left = random.randint(window_width, window_width + buffer_distance)
+    enemy_rect.centery = random.randint(0, window_height - 48)
+    enemies.append(enemy_rect)
 
-	running = True
-	while running:
-		clock.tick(FPS)
+#The main game loop
+running = True
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+    
+    #Continous movement
+    key_pressed = pygame.key.get_pressed()
+    if key_pressed[pygame.K_UP] and player_rect.top > 0:
+        player_rect.y -= player_velocity
+    if key_pressed[pygame.K_DOWN] and player_rect.bottom < window_height:
+        player_rect.y += player_velocity
+    
+    #Move the enemy
+    for enemy_rect in enemies:
+        if enemy_rect.right < 0:
+            enemy_rect.left = random.randint(window_width, window_width + buffer_distance)
+            enemy_rect.centery = random.randint(0, window_height - 48)
+        else:
+            enemy_rect.x -= enemy_velocity
 
-		for event in pygame.event.get():
-			if event.type == pygame.QUIT:
-				running = False
+        if player_rect.colliderect(enemy_rect):
+            quit()
 
-		spawn_enemies()
-		move_everything()
-		move_player()
-		check_collision()
-		draw()
+    #Blit (copying) images
+    window.blit(background_image, background_rect)
+    window.blit(player_image, player_rect)
 
+    for enemy_rect in enemies:
+        window.blit(enemy_image, enemy_rect)
 
-def draw():
-	# Draw the background and player
-	WIN.blit(SPACE_IMAGE, (0, 0))
-	WIN.blit(PLAYER_IMAGE, (player.x, player.y))
-
-	# Draw enemies
-	for enemy in enemies_list:
-		WIN.blit(ENEMY_IMAGE, (enemy.x, enemy.y))
-	pygame.display.update()
-
-
-def spawn_enemies():
-	if random.randint(0, 100) < 2 and len(enemies_list) < MAX_ENEMY_ON_MAP:
-		x_location = WIDTH - 100
-		y_location = random.randint(0, HEIGHT - SPACESHIP_HEIGHT)
-		enemy = pygame.Rect(x_location, y_location, SPACESHIP_WIDTH, SPACESHIP_HEIGHT)
-		enemies_list.append(enemy)
-
-
-def move_everything():
-	for enemy in enemies_list:
-		enemy.x -= ENEMY_VEL
-		if enemy.x + enemy.width < 0:
-			enemies_list.remove(enemy)
-
-
-def move_player():
-	keys_pressed = pygame.key.get_pressed()
-
-	if keys_pressed[pygame.K_a] and player.x > 0:
-		player.x -= PLAYER_VEL
-
-	if keys_pressed[pygame.K_d] and player.x + player.width < WIDTH:
-		player.x += PLAYER_VEL
-
-	if keys_pressed[pygame.K_w] and player.y - PLAYER_VEL > 0:
-		player.y -= PLAYER_VEL
-
-	if keys_pressed[pygame.K_s] and player.y + PLAYER_VEL + player.height < HEIGHT:
-		player.y += PLAYER_VEL
-
-
-def check_collision():
-	for enemy in enemies_list:
-		if player.colliderect(enemy):
-			exit()
-
-
-if __name__ == "__main__":
-	main()
+    #Update the display
+    pygame.display.update()
+    clock.tick(FPS)
